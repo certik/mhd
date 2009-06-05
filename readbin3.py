@@ -69,6 +69,14 @@ for n in [14]:
     #import IPython
     #IPython.Shell.IPShell(user_ns=dict(globals(), **locals())).mainloop()
     iphi1 = arange(nphi)
-    newiphi1 = (iphi1 + iphi - 1) % nphi + 1
+    newiphi1 = (iphi1 + iphi) % nphi
     print newiphi1
     print len(newiphi1)
+    print newiphi1.min()
+    print newiphi1.max()
+    print "---"
+    print data
+    #data_mov = data.copy()
+    #data_mov[:, newiphi1, :] = data[:, iphi1, :]
+    #data = data_mov
+    #print data
