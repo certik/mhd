@@ -2,7 +2,7 @@ import sys
 from math import pi, floor
 from struct import calcsize, unpack
 
-from numpy import arange, meshgrid, sin, cos, zeros, array, concatenate
+from numpy import arange, meshgrid, sin, cos, zeros, array, concatenate, savez
 
 import pylab
 
@@ -100,5 +100,7 @@ for n in [14]:
     X = (r-rp[0])/roche[0]
     Y = phi
     C = pv
-    pylab.pcolor(X, Y, C)
-    pylab.show()
+    print "saving"
+    f = open("/tmp/plot", "w")
+    savez("/tmp/plot", X=X, Y=Y, C=C)
+    print "done"
