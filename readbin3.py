@@ -36,7 +36,7 @@ beta = 1.5  # power law for density profile
 
 k = []
 base = 'fortb.u';
-for n in range(1, 3):
+for n in range(1, 250):
     print "it=%d" % n
     ext = "%04d" % n
     filename = "%s%s%s" % ("../data/", base, ext)
@@ -97,13 +97,15 @@ for n in range(1, 3):
     newphip = zeros(nplanets)
     for np in range(nplanets):
         newphip[np] = (phip[np] + iphi * dp) % (2*pi)
+    print "  concatenating..."
     data = concatenate((data, data[:, 0, :].reshape((nvar, 1, nr), order="F")),
             axis=1)
+    print "  done."
     rho  = data[0, :, :].reshape((nphi+1, nr), order="F")
-    pv   = data[3, :, :].reshape((nphi+1, nr), order="F")
-    torq = data[4, :, :].reshape((nphi+1, nr), order="F")
+    #pv   = data[3, :, :].reshape((nphi+1, nr), order="F")
+    #torq = data[4, :, :].reshape((nphi+1, nr), order="F")
     rhos = rho * r**beta
-    rt3 = (radi-rp[0])/roche[0]
+    #rt3 = (radi-rp[0])/roche[0]
     # density
     X1 = x
     Y1 = y
