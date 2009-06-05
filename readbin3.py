@@ -36,7 +36,7 @@ beta = 1.5  # power law for density profile
 
 k = []
 base = 'fortb.u';
-for n in range(1, 250):
+for n in range(217, 250):
     print "it=%d" % n
     ext = "%04d" % n
     filename = "%s%s%s" % ("../data/", base, ext)
