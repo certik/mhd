@@ -36,8 +36,8 @@ beta = 1.5  # power law for density profile
 
 k = []
 base = 'fortb.u';
-for n in [14]:
-    print n
+for n in range(1, 3):
+    print "it=%d" % n
     ext = "%04d" % n
     filename = "%s%s%s" % ("../data/", base, ext)
     f = open(filename)
@@ -63,30 +63,35 @@ for n in [14]:
         vy[np] = fread(f, "f")
         mplanet[np] = fread(f, "f")
         roche[np] = (mplanet[np]/3.0/(1+mplanet[np]))**(1./3) * rp[np]
-    print roche
+    #print roche
 
+    print "  reading data..."
     data = fread(f, nvar*nr*nphi*"f")
+    print "  done."
     f.close()
     #print "-"*40
     #print array(data)[:10]
     #print "-"*40
     #sys.exit()
+    print "  reshaping..."
     data = array(data).reshape((nvar, nphi, nr), order="F")
-
+    print "  done"
     iphi = -int(floor((phip[0]-pi)/dp + 0.5))
     #import IPython
     #IPython.Shell.IPShell(user_ns=dict(globals(), **locals())).mainloop()
     iphi1 = arange(nphi)
     newiphi1 = (iphi1 + iphi) % nphi
-    print newiphi1
-    print len(newiphi1)
-    print newiphi1.min()
-    print newiphi1.max()
-    print "---"
-    print data.shape
+    #print newiphi1
+    #print len(newiphi1)
+    #print newiphi1.min()
+    #print newiphi1.max()
+    #print "---"
+    #print data.shape
     #print data[:, 3000, :3]
     data_mov = data.copy()
+    print "  reindexing..."
     data_mov[:, newiphi1, :] = data[:, iphi1, :]
+    print "  done."
     data = data_mov
     #print data[:, 3000, :3]
     newphip = zeros(nplanets)
