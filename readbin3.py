@@ -63,7 +63,11 @@ for n in [14]:
 
     data = fread(f, nvar*nr*nphi*"f")
     f.close()
-    data = array(data).reshape((nvar, nphi, nr))
+    #print "-"*40
+    #print array(data)[:10]
+    #print "-"*40
+    #sys.exit()
+    data = array(data).reshape((nvar, nphi, nr), order="F")
 
     iphi = -int(floor((phip[0]-pi)/dp + 0.5))
     #import IPython
@@ -75,7 +79,8 @@ for n in [14]:
     print newiphi1.min()
     print newiphi1.max()
     print "---"
-    print data
+    print data.shape
+    print data[:, 3000, :3]
     #data_mov = data.copy()
     #data_mov[:, newiphi1, :] = data[:, iphi1, :]
     #data = data_mov
