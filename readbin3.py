@@ -80,8 +80,8 @@ for n in [14]:
     print newiphi1.max()
     print "---"
     print data.shape
-    print data[:, 3000, :3]
-    #data_mov = data.copy()
-    #data_mov[:, newiphi1, :] = data[:, iphi1, :]
-    #data = data_mov
-    #print data
+    #print data[:, 3000, :3]
+    data_mov = data.copy()
+    data_mov[:, newiphi1, :] = data[:, iphi1, :]
+    data = data_mov
+    #print data[:, 3000, :3]
