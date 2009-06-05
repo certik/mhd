@@ -97,12 +97,17 @@ for n in [14]:
     torq = data[4, :, :].reshape((nphi+1, nr), order="F")
     rhos = rho * r**beta
     rt3 = (radi-rp[0])/roche[0]
-    X = (r-rp[0])/roche[0]
-    Y = phi
-    C = pv
+    # density
+    X1 = x
+    Y1 = y
+    C1 = rhos
+    # potential vorticity
+    X2 = (r-rp[0])/roche[0]
+    Y2 = phi
+    C2 = pv
     print "saving"
     f = open("/tmp/plot", "w")
-    savez("/tmp/plot", X=X, Y=Y, C=C)
+    savez("/tmp/plot", X1=X1, Y1=Y1, C1=C1, X2=X2, Y2=Y2, C2=C2)
     print "done"
     #print (rp[0]-rp[0])/roche[0]
     #print newphip[0]
