@@ -2,7 +2,9 @@ import sys
 from math import pi, floor
 from struct import calcsize, unpack
 
-from numpy import arange, meshgrid, sin, cos, zeros, array
+from numpy import arange, meshgrid, sin, cos, zeros, array, concatenate
+
+import pylab
 
 def fread(f, fmt):
     u = unpack(fmt, f.read(calcsize(fmt)))
@@ -85,3 +87,18 @@ for n in [14]:
     data_mov[:, newiphi1, :] = data[:, iphi1, :]
     data = data_mov
     #print data[:, 3000, :3]
+    newphip = zeros(nplanets)
+    for np in range(nplanets):
+        newphip[np] = (phip[np] + iphi * dp) % (2*pi)
+    data = concatenate((data, data[:, 0, :].reshape((nvar, 1, nr), order="F")),
+            axis=1)
+    rho  = data[0, :, :].reshape((nphi+1, nr), order="F")
+    pv   = data[3, :, :].reshape((nphi+1, nr), order="F")
+    torq = data[4, :, :].reshape((nphi+1, nr), order="F")
+    rhos = rho * r**beta
+    rt3 = (radi-rp[0])/roche[0]
+    X = (r-rp[0])/roche[0]
+    Y = phi
+    C = pv
+    pylab.pcolor(X, Y, C)
+    pylab.show()
