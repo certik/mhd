@@ -104,3 +104,5 @@ for n in [14]:
     f = open("/tmp/plot", "w")
     savez("/tmp/plot", X=X, Y=Y, C=C)
     print "done"
+    #print (rp[0]-rp[0])/roche[0]
+    #print newphip[0]
