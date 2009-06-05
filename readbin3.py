@@ -1,6 +1,7 @@
 import sys
 from math import pi, floor
 from struct import calcsize, unpack
+from cPickle import dump
 
 from numpy import arange, meshgrid, sin, cos, zeros, array, concatenate, savez
 
@@ -33,6 +34,7 @@ radi = X
 
 beta = 1.5  # power law for density profile
 
+k = []
 base = 'fortb.u';
 for n in [14]:
     print n
@@ -101,13 +103,12 @@ for n in [14]:
     X1 = x
     Y1 = y
     C1 = rhos
+    k.append((X1, Y1, C1))
     # potential vorticity
-    X2 = (r-rp[0])/roche[0]
-    Y2 = phi
-    C2 = pv
-    print "saving"
-    f = open("/tmp/plot", "w")
-    savez("/tmp/plot", X1=X1, Y1=Y1, C1=C1, X2=X2, Y2=Y2, C2=C2)
-    print "done"
-    #print (rp[0]-rp[0])/roche[0]
-    #print newphip[0]
+    #X2 = (r-rp[0])/roche[0]
+    #Y2 = phi
+    #C2 = pv
+print "saving"
+f = open("/tmp/plot", "w")
+dump(k, f, protocol=2)
+print "done"
