@@ -1,8 +1,8 @@
 import sys
-from math import pi
+from math import pi, floor
 from struct import calcsize, unpack
 
-from numpy import arange, meshgrid, sin, cos, zeros
+from numpy import arange, meshgrid, sin, cos, zeros, array
 
 def fread(f, fmt):
     u = unpack(fmt, f.read(calcsize(fmt)))
@@ -32,11 +32,11 @@ radi = X
 beta = 1.5  # power law for density profile
 
 base = 'fortb.u';
-for n in [1, 2, 3]:
+for n in [14]:
+    print n
     ext = "%04d" % n
     filename = "%s%s%s" % ("../data/", base, ext)
     f = open(filename)
-    print f
     rp = zeros(nplanets)
     phip = zeros(nplanets)
     vx = zeros(nplanets)
@@ -59,3 +59,16 @@ for n in [1, 2, 3]:
         vy[np] = fread(f, "f")
         mplanet[np] = fread(f, "f")
         roche[np] = (mplanet[np]/3.0/(1+mplanet[np]))**(1./3) * rp[np]
+    print roche
+
+    data = fread(f, nvar*nr*nphi*"f")
+    f.close()
+    data = array(data).reshape((nvar, nphi, nr))
+
+    iphi = -int(floor((phip[0]-pi)/dp + 0.5))
+    #import IPython
+    #IPython.Shell.IPShell(user_ns=dict(globals(), **locals())).mainloop()
+    iphi1 = arange(nphi)
+    newiphi1 = (iphi1 + iphi - 1) % nphi + 1
+    print newiphi1
+    print len(newiphi1)
