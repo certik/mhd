@@ -9,7 +9,7 @@ from cPickle import load
 from numpy import array
 import matplotlib
 matplotlib.use("Agg")
-from pylab import pcolor, pcolormesh, show, savefig, clf, colorbar, gca
+from pylab import pcolor, pcolormesh, show, savefig, clf, colorbar, gca, title
 
 from tables import IsDescription, openFile, Float64Col
 print "  done."
@@ -40,6 +40,7 @@ def plot_frame(n=0):
     pcolormesh(X, Y, C, vmin=C_min, vmax=C_max)
     colorbar()
     gca().set_aspect("equal")
+    title("time: %d" % (n*10))
     print "  savefig"
     savefig("frame%04d.png" % n, dpi=100)
     print "    done"
@@ -47,3 +48,6 @@ def plot_frame(n=0):
 for i in range(N):
     print "frame:", i
     plot_frame(i)
+
+print "To encode using theora:"
+print "ffmpeg2theora -F 15 -v 10 frame%04d.png -o density.ogv"
