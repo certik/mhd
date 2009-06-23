@@ -27,21 +27,23 @@ X = array(h5.root.data.X)
 Y = array(h5.root.data.Y)
 print "  done."
 
-print "read C:"
-C = Cdata.cols.C[0]
-print "  done."
+N = len(Cdata.cols)
 
-C_min = C.min()
-C_max = C.max()
+def plot_frame(n=0):
+    print "  read C:"
+    C = Cdata.cols.C[n]
+    print "    done."
+    #C_min = C.min()
+    #C_max = C.max()
+    print "  min/max", C.min(), C.max()
+    clf()
+    pcolormesh(X, Y, C, vmin=C_min, vmax=C_max)
+    colorbar()
+    gca().set_aspect("equal")
+    print "  savefig"
+    savefig("frame%04d.png" % n, dpi=100)
+    print "    done"
 
-print "pcolor"
-print C.shape
-print "min/max", C.min(), C.max()
-pcolormesh(X, Y, C, vmin=C_min, vmax=C_max)
-colorbar()
-gca().set_aspect("equal")
-print "savefig"
-savefig("a.png", dpi=100)
-print "done"
-#print "show"
-#show()
+for i in range(N):
+    print "frame:", i
+    plot_frame(i)
