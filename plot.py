@@ -2,13 +2,17 @@
 Reads data from data.h5 file and plots it using pcolor().
 """
 
+print "Importing libraries"
 import sys
 from cPickle import load
 
 from numpy import array
+import matplotlib
+matplotlib.use("WxAgg")
 from pylab import pcolor, pcolormesh, show, savefig, clf, colorbar, gca
 
 from tables import IsDescription, openFile, Float64Col
+print "  done."
 
 print "opening data"
 h5 = openFile("../data.h5")
@@ -37,6 +41,7 @@ pcolormesh(X, Y, C, vmin=C_min, vmax=C_max)
 colorbar()
 gca().set_aspect("equal")
 print "savefig"
-savefig("a.png")
+savefig("a.png", dpi=100)
+print "done"
 #print "show"
 #show()
