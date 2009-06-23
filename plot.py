@@ -8,7 +8,7 @@ from cPickle import load
 
 from numpy import array
 import matplotlib
-matplotlib.use("WxAgg")
+matplotlib.use("Agg")
 from pylab import pcolor, pcolormesh, show, savefig, clf, colorbar, gca
 
 from tables import IsDescription, openFile, Float64Col
