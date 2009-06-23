@@ -38,5 +38,5 @@ colorbar()
 gca().set_aspect("equal")
 print "savefig"
 savefig("a.png")
-print "show"
-show()
+#print "show"
+#show()
