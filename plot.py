@@ -14,7 +14,7 @@ from pylab import pcolor, pcolormesh, show, savefig, clf, colorbar, gca, title
 from tables import IsDescription, openFile, Float64Col
 import visit_writer
 
-from pcolor import pcolor_unstructured
+import pcolor
 print "  done."
 
 print "opening data"
@@ -30,6 +30,10 @@ X = array(h5.root.data.X)
 Y = array(h5.root.data.Y)
 print "  done."
 
+print "pts & connectivity:"
+pts, connectivity = pcolor.pts_connectivity(X, Y)
+print "  done."
+
 N = len(Cdata.cols)
 
 def plot_frame(n=0):
@@ -39,7 +43,9 @@ def plot_frame(n=0):
     #C_min = C.min()
     #C_max = C.max()
     print "  min/max", C.min(), C.max()
-    pts, connectivity, zonal, nodal = pcolor_unstructured(X, Y, C)
+    print "zonal, nodal:"
+    zonal, nodal = pcolor.zonal_nodal(X.shape[0], X.shape[1], C)
+    print "  done."
     print "  savefig"
     vars = (
             ("C", 1, 0, zonal), ("nodal", 1, 1, nodal),
