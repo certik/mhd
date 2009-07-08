@@ -12,6 +12,9 @@ matplotlib.use("Agg")
 from pylab import pcolor, pcolormesh, show, savefig, clf, colorbar, gca, title
 
 from tables import IsDescription, openFile, Float64Col
+import visit_writer
+
+from pcolor import pcolor_unstructured
 print "  done."
 
 print "opening data"
@@ -36,16 +39,16 @@ def plot_frame(n=0):
     #C_min = C.min()
     #C_max = C.max()
     print "  min/max", C.min(), C.max()
-    clf()
-    pcolormesh(X, Y, C, vmin=C_min, vmax=C_max)
-    colorbar()
-    gca().set_aspect("equal")
-    title("time: %d" % (n*10))
+    pts, connectivity, zonal, nodal = pcolor_unstructured(X, Y, C)
     print "  savefig"
-    savefig("frame%04d.png" % n, dpi=100)
+    vars = (
+            ("C", 1, 0, zonal), ("nodal", 1, 1, nodal),
+            )
+    visit_writer.WriteUnstructuredMesh("frame%04d.vtk" % n,
+            1, pts, connectivity, vars)
     print "    done"
 
-for i in range(N):
+for i in range(1):
     print "frame:", i
     plot_frame(i)
 
