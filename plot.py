@@ -54,7 +54,7 @@ def plot_frame(n=0):
             1, pts, connectivity, vars)
     print "    done"
 
-for i in range(1):
+for i in range(N):
     print "frame:", i
     plot_frame(i)
 
